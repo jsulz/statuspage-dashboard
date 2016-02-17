@@ -26,7 +26,6 @@ if( ! class_exists( 'STATDASH' ) ) {
 	                self::$instance = new STATDASH( );
 	                self::$instance->plugin_constants( );
 	                self::$instance->plugin_requires( );
-	                add_action( 'wp_enqueue_scripts', array( self::$instance, 'load_all_scripts' ) );
 	                //check when text domain can be queued up and load appropriately
 
 	            }
@@ -42,9 +41,9 @@ if( ! class_exists( 'STATDASH' ) ) {
 			define( 'STATDASH_INC', trailingslashit( STATDASH_FOLDER . 'inc' ) );
 			define( 'STATDASH_CSS', trailingslashit( STATDASH_FOLDER . 'css' ) );
 			define( 'STATDASH_JS', trailingslashit( STATDASH_FOLDER . 'js' ) );	
-			define( 'STATDASH_SHORTCODES', STATDASH_INC . 'shortcodes.php');
 			define( 'STATDASH_WIDGET', STATDASH_INC . 'widget.php' );
 			define( 'STATDASH_API_CLIENT', STATDASH_INC . 'client.php' );
+			define( 'STATDASH_API_CLIENT', STATDASH_INC . 'scripts.php' );
 			define( 'CSS_VERSION', '0.1' );
 
 		}
@@ -62,15 +61,8 @@ if( ! class_exists( 'STATDASH' ) ) {
 		//Need to refactor as I might need to load this differently similar to load_all_scripts()
 		public function class_name_load_plugin_textdomain() {
 
-	    	load_plugin_textdomain( 'text-domain', FALSE, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	    	load_plugin_textdomain( 'statdash', FALSE, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-		}
-
-		//Add this to it's own file - scripts.php
-		//Don't hardcode version number - add as constant
-		public function load_all_scripts() {
-
-			wp_enqueue_style( 'handle', plugin_dir_url( __FILE__ ) . 'css/styles.css', array(), CSS_VERSION, 'all' );
 		}
 		
 	}
